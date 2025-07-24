@@ -1,0 +1,1506 @@
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0plus
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"UART_1_SPI_UART.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.UART_1_SpiUartWriteTxData,"ax",%progbits
+  20              		.align	2
+  21              		.global	UART_1_SpiUartWriteTxData
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	UART_1_SpiUartWriteTxData, %function
+  25              	UART_1_SpiUartWriteTxData:
+  26              	.LFB1:
+  27              		.file 1 "Generated_Source\\PSoC4\\UART_1_SPI_UART.c"
+   1:Generated_Source\PSoC4/UART_1_SPI_UART.c **** /***************************************************************************//**
+   2:Generated_Source\PSoC4/UART_1_SPI_UART.c **** * \file UART_1_SPI_UART.c
+   3:Generated_Source\PSoC4/UART_1_SPI_UART.c **** * \version 4.0
+   4:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *
+   5:Generated_Source\PSoC4/UART_1_SPI_UART.c **** * \brief
+   6:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *  This file provides the source code to the API for the SCB Component in
+   7:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *  SPI and UART modes.
+   8:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *
+   9:Generated_Source\PSoC4/UART_1_SPI_UART.c **** * Note:
+  10:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *
+  11:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *******************************************************************************
+  12:Generated_Source\PSoC4/UART_1_SPI_UART.c **** * \copyright
+  13:Generated_Source\PSoC4/UART_1_SPI_UART.c **** * Copyright 2013-2017, Cypress Semiconductor Corporation.  All rights reserved.
+  14:Generated_Source\PSoC4/UART_1_SPI_UART.c **** * You may use this file only in accordance with the license, terms, conditions,
+  15:Generated_Source\PSoC4/UART_1_SPI_UART.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  16:Generated_Source\PSoC4/UART_1_SPI_UART.c **** * the software package with which this file was provided.
+  17:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *******************************************************************************/
+  18:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+  19:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #include "UART_1_PVT.h"
+  20:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #include "UART_1_SPI_UART_PVT.h"
+  21:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+  22:Generated_Source\PSoC4/UART_1_SPI_UART.c **** /***************************************
+  23:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *        SPI/UART Private Vars
+  24:Generated_Source\PSoC4/UART_1_SPI_UART.c **** ***************************************/
+  25:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+  26:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #if(UART_1_INTERNAL_RX_SW_BUFFER_CONST)
+  27:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /* Start index to put data into the software receive buffer.*/
+  28:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     volatile uint32 UART_1_rxBufferHead;
+  29:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /* Start index to get data from the software receive buffer.*/
+  30:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     volatile uint32 UART_1_rxBufferTail;
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 2
+
+
+  31:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /**
+  32:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \addtogroup group_globals
+  33:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \{
+  34:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     */
+  35:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /** Sets when internal software receive buffer overflow
+  36:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  was occurred.
+  37:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     */
+  38:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     volatile uint8  UART_1_rxBufferOverflow;
+  39:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /** \} globals */
+  40:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #endif /* (UART_1_INTERNAL_RX_SW_BUFFER_CONST) */
+  41:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+  42:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #if(UART_1_INTERNAL_TX_SW_BUFFER_CONST)
+  43:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /* Start index to put data into the software transmit buffer.*/
+  44:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     volatile uint32 UART_1_txBufferHead;
+  45:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /* Start index to get data from the software transmit buffer.*/
+  46:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     volatile uint32 UART_1_txBufferTail;
+  47:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #endif /* (UART_1_INTERNAL_TX_SW_BUFFER_CONST) */
+  48:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+  49:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #if(UART_1_INTERNAL_RX_SW_BUFFER)
+  50:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /* Add one element to the buffer to receive full packet. One byte in receive buffer is always e
+  51:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     volatile uint8 UART_1_rxBufferInternal[UART_1_INTERNAL_RX_BUFFER_SIZE];
+  52:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #endif /* (UART_1_INTERNAL_RX_SW_BUFFER) */
+  53:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+  54:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #if(UART_1_INTERNAL_TX_SW_BUFFER)
+  55:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     volatile uint8 UART_1_txBufferInternal[UART_1_TX_BUFFER_SIZE];
+  56:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #endif /* (UART_1_INTERNAL_TX_SW_BUFFER) */
+  57:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+  58:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+  59:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #if(UART_1_RX_DIRECTION)
+  60:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /*******************************************************************************
+  61:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * Function Name: UART_1_SpiUartReadRxData
+  62:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     ****************************************************************************//**
+  63:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+  64:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  Retrieves the next data element from the receive buffer.
+  65:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *   - RX software buffer is disabled: Returns data element retrieved from
+  66:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *     RX FIFO. Undefined data will be returned if the RX FIFO is empty.
+  67:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *   - RX software buffer is enabled: Returns data element from the software
+  68:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *     receive buffer. Zero value is returned if the software receive buffer
+  69:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *     is empty.
+  70:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+  71:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \return
+  72:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  Next data element from the receive buffer. 
+  73:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  The amount of data bits to be received depends on RX data bits selection 
+  74:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  (the data bit counting starts from LSB of return value).
+  75:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+  76:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \globalvars
+  77:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_rxBufferHead - the start index to put data into the 
+  78:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  software receive buffer.
+  79:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_rxBufferTail - the start index to get data from the 
+  80:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  software receive buffer.
+  81:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+  82:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *******************************************************************************/
+  83:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     uint32 UART_1_SpiUartReadRxData(void)
+  84:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     {
+  85:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         uint32 rxData = 0u;
+  86:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+  87:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     #if (UART_1_INTERNAL_RX_SW_BUFFER_CONST)
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 3
+
+
+  88:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         uint32 locTail;
+  89:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     #endif /* (UART_1_INTERNAL_RX_SW_BUFFER_CONST) */
+  90:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+  91:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #if (UART_1_CHECK_RX_SW_BUFFER)
+  92:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+  93:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             if (UART_1_rxBufferHead != UART_1_rxBufferTail)
+  94:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             {
+  95:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 /* There is data in RX software buffer */
+  96:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+  97:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 /* Calculate index to read from */
+  98:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 locTail = (UART_1_rxBufferTail + 1u);
+  99:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 100:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 if (UART_1_INTERNAL_RX_BUFFER_SIZE == locTail)
+ 101:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 {
+ 102:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                     locTail = 0u;
+ 103:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 }
+ 104:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 105:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 /* Get data from RX software buffer */
+ 106:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 rxData = UART_1_GetWordFromRxBuffer(locTail);
+ 107:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 108:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 /* Change index in the buffer */
+ 109:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 UART_1_rxBufferTail = locTail;
+ 110:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 111:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 #if (UART_1_CHECK_UART_RTS_CONTROL_FLOW)
+ 112:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 {
+ 113:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                     /* Check if RX Not Empty is disabled in the interrupt */
+ 114:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                     if (0u == (UART_1_INTR_RX_MASK_REG & UART_1_INTR_RX_NOT_EMPTY))
+ 115:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                     {
+ 116:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                         /* Enable RX Not Empty interrupt source to continue
+ 117:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                         * receiving data into software buffer.
+ 118:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                         */
+ 119:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                         UART_1_INTR_RX_MASK_REG |= UART_1_INTR_RX_NOT_EMPTY;
+ 120:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                     }
+ 121:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 }
+ 122:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 #endif
+ 123:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 124:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             }
+ 125:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         }
+ 126:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #else
+ 127:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+ 128:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             /* Read data from RX FIFO */
+ 129:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             rxData = UART_1_RX_FIFO_RD_REG;
+ 130:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         }
+ 131:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #endif
+ 132:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 133:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         return (rxData);
+ 134:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     }
+ 135:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 136:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 137:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /*******************************************************************************
+ 138:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * Function Name: UART_1_SpiUartGetRxBufferSize
+ 139:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     ****************************************************************************//**
+ 140:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 141:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  Returns the number of received data elements in the receive buffer.
+ 142:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *   - RX software buffer disabled: returns the number of used entries in
+ 143:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *     RX FIFO.
+ 144:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *   - RX software buffer enabled: returns the number of elements which were
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 4
+
+
+ 145:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *     placed in the receive buffer. This does not include the hardware RX FIFO.
+ 146:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 147:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \return
+ 148:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  Number of received data elements.
+ 149:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 150:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \globalvars
+ 151:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_rxBufferHead - the start index to put data into the 
+ 152:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  software receive buffer.
+ 153:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_rxBufferTail - the start index to get data from the 
+ 154:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  software receive buffer.
+ 155:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 156:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *******************************************************************************/
+ 157:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     uint32 UART_1_SpiUartGetRxBufferSize(void)
+ 158:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     {
+ 159:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         uint32 size;
+ 160:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     #if (UART_1_INTERNAL_RX_SW_BUFFER_CONST)
+ 161:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         uint32 locHead;
+ 162:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     #endif /* (UART_1_INTERNAL_RX_SW_BUFFER_CONST) */
+ 163:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 164:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #if (UART_1_CHECK_RX_SW_BUFFER)
+ 165:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+ 166:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             locHead = UART_1_rxBufferHead;
+ 167:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 168:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             if(locHead >= UART_1_rxBufferTail)
+ 169:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             {
+ 170:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 size = (locHead - UART_1_rxBufferTail);
+ 171:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             }
+ 172:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             else
+ 173:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             {
+ 174:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 size = (locHead + (UART_1_INTERNAL_RX_BUFFER_SIZE - UART_1_rxBufferTail));
+ 175:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             }
+ 176:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         }
+ 177:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #else
+ 178:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+ 179:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             size = UART_1_GET_RX_FIFO_ENTRIES;
+ 180:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         }
+ 181:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #endif
+ 182:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 183:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         return (size);
+ 184:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     }
+ 185:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 186:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 187:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /*******************************************************************************
+ 188:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * Function Name: UART_1_SpiUartClearRxBuffer
+ 189:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     ****************************************************************************//**
+ 190:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 191:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  Clears the receive buffer and RX FIFO.
+ 192:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 193:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \globalvars
+ 194:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_rxBufferHead - the start index to put data into the 
+ 195:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  software receive buffer.
+ 196:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_rxBufferTail - the start index to get data from the 
+ 197:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  software receive buffer.
+ 198:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 199:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *******************************************************************************/
+ 200:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     void UART_1_SpiUartClearRxBuffer(void)
+ 201:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     {
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 5
+
+
+ 202:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #if (UART_1_CHECK_RX_SW_BUFFER)
+ 203:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+ 204:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             /* Lock from component interruption */
+ 205:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_DisableInt();
+ 206:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 207:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             /* Flush RX software buffer */
+ 208:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_rxBufferHead = UART_1_rxBufferTail;
+ 209:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_rxBufferOverflow = 0u;
+ 210:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 211:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_CLEAR_RX_FIFO;
+ 212:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_ClearRxInterruptSource(UART_1_INTR_RX_ALL);
+ 213:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 214:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             #if (UART_1_CHECK_UART_RTS_CONTROL_FLOW)
+ 215:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             {
+ 216:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 /* Enable RX Not Empty interrupt source to continue receiving
+ 217:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 * data into software buffer.
+ 218:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 */
+ 219:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 UART_1_INTR_RX_MASK_REG |= UART_1_INTR_RX_NOT_EMPTY;
+ 220:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             }
+ 221:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             #endif
+ 222:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             
+ 223:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             /* Release lock */
+ 224:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_EnableInt();
+ 225:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         }
+ 226:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #else
+ 227:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+ 228:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_CLEAR_RX_FIFO;
+ 229:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         }
+ 230:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #endif
+ 231:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     }
+ 232:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 233:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #endif /* (UART_1_RX_DIRECTION) */
+ 234:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 235:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 236:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #if(UART_1_TX_DIRECTION)
+ 237:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /*******************************************************************************
+ 238:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * Function Name: UART_1_SpiUartWriteTxData
+ 239:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     ****************************************************************************//**
+ 240:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 241:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  Places a data entry into the transmit buffer to be sent at the next available
+ 242:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  bus time.
+ 243:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  This function is blocking and waits until there is space available to put the
+ 244:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  requested data in the transmit buffer.
+ 245:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 246:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  \param txDataByte: the data to be transmitted.
+ 247:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *   The amount of data bits to be transmitted depends on TX data bits selection 
+ 248:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *   (the data bit counting starts from LSB of txDataByte).
+ 249:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 250:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \globalvars
+ 251:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_txBufferHead - the start index to put data into the 
+ 252:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  software transmit buffer.
+ 253:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_txBufferTail - start index to get data from the software
+ 254:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  transmit buffer.
+ 255:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 256:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *******************************************************************************/
+ 257:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     void UART_1_SpiUartWriteTxData(uint32 txData)
+ 258:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     {
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 6
+
+
+  28              		.loc 1 258 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  34              	.L2:
+ 259:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     #if (UART_1_INTERNAL_TX_SW_BUFFER_CONST)
+ 260:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         uint32 locHead;
+ 261:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     #endif /* (UART_1_INTERNAL_TX_SW_BUFFER_CONST) */
+ 262:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 263:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #if (UART_1_CHECK_TX_SW_BUFFER)
+ 264:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+ 265:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             /* Put data directly into the TX FIFO */
+ 266:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             if ((UART_1_txBufferHead == UART_1_txBufferTail) &&
+ 267:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 (UART_1_SPI_UART_FIFO_SIZE != UART_1_GET_TX_FIFO_ENTRIES))
+ 268:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             {
+ 269:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 /* TX software buffer is empty: put data directly in TX FIFO */
+ 270:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 UART_1_TX_FIFO_WR_REG = txData;
+ 271:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             }
+ 272:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             /* Put data into TX software buffer */
+ 273:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             else
+ 274:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             {
+ 275:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 /* Head index to put data */
+ 276:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 locHead = (UART_1_txBufferHead + 1u);
+ 277:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 278:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 /* Adjust TX software buffer index */
+ 279:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 if (UART_1_TX_BUFFER_SIZE == locHead)
+ 280:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 {
+ 281:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                     locHead = 0u;
+ 282:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 }
+ 283:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 284:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 /* Wait for space in TX software buffer */
+ 285:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 while (locHead == UART_1_txBufferTail)
+ 286:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 {
+ 287:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 }
+ 288:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 289:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 /* TX software buffer has at least one room */
+ 290:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 291:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 /* Clear old status of INTR_TX_NOT_FULL. It sets at the end of transfer when TX FIF
+ 292:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 UART_1_ClearTxInterruptSource(UART_1_INTR_TX_NOT_FULL);
+ 293:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 294:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 UART_1_PutWordInTxBuffer(locHead, txData);
+ 295:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 296:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 UART_1_txBufferHead = locHead;
+ 297:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 298:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 /* Check if TX Not Full is disabled in interrupt */
+ 299:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 if (0u == (UART_1_INTR_TX_MASK_REG & UART_1_INTR_TX_NOT_FULL))
+ 300:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 {
+ 301:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                     /* Enable TX Not Full interrupt source to transmit from software buffer */
+ 302:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                     UART_1_INTR_TX_MASK_REG |= (uint32) UART_1_INTR_TX_NOT_FULL;
+ 303:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 }
+ 304:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             }
+ 305:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         }
+ 306:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #else
+ 307:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+ 308:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             /* Wait until TX FIFO has space to put data element */
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 7
+
+
+ 309:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             while (UART_1_SPI_UART_FIFO_SIZE == UART_1_GET_TX_FIFO_ENTRIES)
+  35              		.loc 1 309 0 discriminator 1
+  36 0000 044B     		ldr	r3, .L3
+  37 0002 1B68     		ldr	r3, [r3]
+  38 0004 1F22     		movs	r2, #31
+  39 0006 1340     		ands	r3, r2
+  40 0008 082B     		cmp	r3, #8
+  41 000a F9D0     		beq	.L2
+ 310:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             {
+ 311:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             }
+ 312:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 313:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_TX_FIFO_WR_REG = txData;
+  42              		.loc 1 313 0
+  43 000c 024B     		ldr	r3, .L3+4
+  44 000e 1860     		str	r0, [r3]
+ 314:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         }
+ 315:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #endif
+ 316:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     }
+  45              		.loc 1 316 0
+  46              		@ sp needed
+  47 0010 7047     		bx	lr
+  48              	.L4:
+  49 0012 C046     		.align	2
+  50              	.L3:
+  51 0014 08020940 		.word	1074332168
+  52 0018 40020940 		.word	1074332224
+  53              		.cfi_endproc
+  54              	.LFE1:
+  55              		.size	UART_1_SpiUartWriteTxData, .-UART_1_SpiUartWriteTxData
+  56              		.section	.text.UART_1_SpiUartPutArray,"ax",%progbits
+  57              		.align	2
+  58              		.global	UART_1_SpiUartPutArray
+  59              		.code	16
+  60              		.thumb_func
+  61              		.type	UART_1_SpiUartPutArray, %function
+  62              	UART_1_SpiUartPutArray:
+  63              	.LFB2:
+ 317:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 318:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 319:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /*******************************************************************************
+ 320:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * Function Name: UART_1_SpiUartPutArray
+ 321:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     ****************************************************************************//**
+ 322:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 323:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  Places an array of data into the transmit buffer to be sent.
+ 324:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  This function is blocking and waits until there is a space available to put
+ 325:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  all the requested data in the transmit buffer. The array size can be greater
+ 326:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  than transmit buffer size.
+ 327:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 328:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \param wrBuf: pointer to an array of data to be placed in transmit buffer. 
+ 329:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  The width of the data to be transmitted depends on TX data width selection 
+ 330:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  (the data bit counting starts from LSB for each array element).
+ 331:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \param count: number of data elements to be placed in the transmit buffer.
+ 332:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 333:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \globalvars
+ 334:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_txBufferHead - the start index to put data into the 
+ 335:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  software transmit buffer.
+ 336:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_txBufferTail - start index to get data from the software
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 8
+
+
+ 337:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  transmit buffer.
+ 338:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 339:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *******************************************************************************/
+ 340:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     void UART_1_SpiUartPutArray(const uint8 wrBuf[], uint32 count)
+ 341:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     {
+  64              		.loc 1 341 0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              	.LVL1:
+  69 0000 70B5     		push	{r4, r5, r6, lr}
+  70              		.cfi_def_cfa_offset 16
+  71              		.cfi_offset 4, -16
+  72              		.cfi_offset 5, -12
+  73              		.cfi_offset 6, -8
+  74              		.cfi_offset 14, -4
+  75 0002 0600     		movs	r6, r0
+  76 0004 0D00     		movs	r5, r1
+  77              	.LVL2:
+ 342:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         uint32 i;
+ 343:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 344:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         for (i=0u; i < count; i++)
+  78              		.loc 1 344 0
+  79 0006 0024     		movs	r4, #0
+  80 0008 03E0     		b	.L6
+  81              	.LVL3:
+  82              	.L7:
+ 345:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+ 346:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_SpiUartWriteTxData((uint32) wrBuf[i]);
+  83              		.loc 1 346 0 discriminator 3
+  84 000a 305D     		ldrb	r0, [r6, r4]
+  85 000c FFF7FEFF 		bl	UART_1_SpiUartWriteTxData
+  86              	.LVL4:
+ 344:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+  87              		.loc 1 344 0 discriminator 3
+  88 0010 0134     		adds	r4, r4, #1
+  89              	.LVL5:
+  90              	.L6:
+ 344:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+  91              		.loc 1 344 0 is_stmt 0 discriminator 1
+  92 0012 AC42     		cmp	r4, r5
+  93 0014 F9D3     		bcc	.L7
+ 347:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         }
+ 348:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     }
+  94              		.loc 1 348 0 is_stmt 1
+  95              		@ sp needed
+  96              	.LVL6:
+  97              	.LVL7:
+  98              	.LVL8:
+  99 0016 70BD     		pop	{r4, r5, r6, pc}
+ 100              		.cfi_endproc
+ 101              	.LFE2:
+ 102              		.size	UART_1_SpiUartPutArray, .-UART_1_SpiUartPutArray
+ 103              		.section	.text.UART_1_SpiUartGetTxBufferSize,"ax",%progbits
+ 104              		.align	2
+ 105              		.global	UART_1_SpiUartGetTxBufferSize
+ 106              		.code	16
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 9
+
+
+ 107              		.thumb_func
+ 108              		.type	UART_1_SpiUartGetTxBufferSize, %function
+ 109              	UART_1_SpiUartGetTxBufferSize:
+ 110              	.LFB3:
+ 349:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 350:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 351:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /*******************************************************************************
+ 352:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * Function Name: UART_1_SpiUartGetTxBufferSize
+ 353:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     ****************************************************************************//**
+ 354:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 355:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  Returns the number of elements currently in the transmit buffer.
+ 356:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *   - TX software buffer is disabled: returns the number of used entries in
+ 357:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *     TX FIFO.
+ 358:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *   - TX software buffer is enabled: returns the number of elements currently
+ 359:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *     used in the transmit buffer. This number does not include used entries in
+ 360:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *     the TX FIFO. The transmit buffer size is zero until the TX FIFO is
+ 361:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *     not full.
+ 362:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 363:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \return
+ 364:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  Number of data elements ready to transmit.
+ 365:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 366:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \globalvars
+ 367:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_txBufferHead - the start index to put data into the 
+ 368:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  software transmit buffer.
+ 369:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_txBufferTail - start index to get data from the software
+ 370:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  transmit buffer.
+ 371:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 372:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *******************************************************************************/
+ 373:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     uint32 UART_1_SpiUartGetTxBufferSize(void)
+ 374:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     {
+ 111              		.loc 1 374 0
+ 112              		.cfi_startproc
+ 113              		@ args = 0, pretend = 0, frame = 0
+ 114              		@ frame_needed = 0, uses_anonymous_args = 0
+ 115              		@ link register save eliminated.
+ 375:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         uint32 size;
+ 376:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     #if (UART_1_INTERNAL_TX_SW_BUFFER_CONST)
+ 377:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         uint32 locTail;
+ 378:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     #endif /* (UART_1_INTERNAL_TX_SW_BUFFER_CONST) */
+ 379:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 380:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #if (UART_1_CHECK_TX_SW_BUFFER)
+ 381:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+ 382:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             /* Get current Tail index */
+ 383:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             locTail = UART_1_txBufferTail;
+ 384:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 385:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             if (UART_1_txBufferHead >= locTail)
+ 386:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             {
+ 387:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 size = (UART_1_txBufferHead - locTail);
+ 388:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             }
+ 389:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             else
+ 390:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             {
+ 391:Generated_Source\PSoC4/UART_1_SPI_UART.c ****                 size = (UART_1_txBufferHead + (UART_1_TX_BUFFER_SIZE - locTail));
+ 392:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             }
+ 393:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         }
+ 394:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #else
+ 395:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+ 396:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             size = UART_1_GET_TX_FIFO_ENTRIES;
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 10
+
+
+ 116              		.loc 1 396 0
+ 117 0000 024B     		ldr	r3, .L9
+ 118 0002 1B68     		ldr	r3, [r3]
+ 119 0004 1F20     		movs	r0, #31
+ 120 0006 1840     		ands	r0, r3
+ 121              	.LVL9:
+ 397:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         }
+ 398:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #endif
+ 399:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 400:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         return (size);
+ 401:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     }
+ 122              		.loc 1 401 0
+ 123              		@ sp needed
+ 124 0008 7047     		bx	lr
+ 125              	.L10:
+ 126 000a C046     		.align	2
+ 127              	.L9:
+ 128 000c 08020940 		.word	1074332168
+ 129              		.cfi_endproc
+ 130              	.LFE3:
+ 131              		.size	UART_1_SpiUartGetTxBufferSize, .-UART_1_SpiUartGetTxBufferSize
+ 132              		.section	.text.UART_1_SpiUartClearTxBuffer,"ax",%progbits
+ 133              		.align	2
+ 134              		.global	UART_1_SpiUartClearTxBuffer
+ 135              		.code	16
+ 136              		.thumb_func
+ 137              		.type	UART_1_SpiUartClearTxBuffer, %function
+ 138              	UART_1_SpiUartClearTxBuffer:
+ 139              	.LFB4:
+ 402:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 403:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 404:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     /*******************************************************************************
+ 405:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * Function Name: UART_1_SpiUartClearTxBuffer
+ 406:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     ****************************************************************************//**
+ 407:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 408:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  Clears the transmit buffer and TX FIFO.
+ 409:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 410:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     * \globalvars
+ 411:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_txBufferHead - the start index to put data into the 
+ 412:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  software transmit buffer.
+ 413:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  UART_1_txBufferTail - start index to get data from the software
+ 414:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *  transmit buffer.
+ 415:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *
+ 416:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     *******************************************************************************/
+ 417:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     void UART_1_SpiUartClearTxBuffer(void)
+ 418:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     {
+ 140              		.loc 1 418 0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144              		@ link register save eliminated.
+ 419:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #if (UART_1_CHECK_TX_SW_BUFFER)
+ 420:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+ 421:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             /* Lock from component interruption */
+ 422:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_DisableInt();
+ 423:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 424:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             /* Flush TX software buffer */
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 11
+
+
+ 425:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_txBufferHead = UART_1_txBufferTail;
+ 426:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 427:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_INTR_TX_MASK_REG &= (uint32) ~UART_1_INTR_TX_NOT_FULL;
+ 428:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_CLEAR_TX_FIFO;
+ 429:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_ClearTxInterruptSource(UART_1_INTR_TX_ALL);
+ 430:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 431:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             /* Release lock */
+ 432:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_EnableInt();
+ 433:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         }
+ 434:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #else
+ 435:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         {
+ 436:Generated_Source\PSoC4/UART_1_SPI_UART.c ****             UART_1_CLEAR_TX_FIFO;
+ 145              		.loc 1 436 0
+ 146 0000 054B     		ldr	r3, .L12
+ 147 0002 1A68     		ldr	r2, [r3]
+ 148 0004 8021     		movs	r1, #128
+ 149 0006 4902     		lsls	r1, r1, #9
+ 150 0008 0A43     		orrs	r2, r1
+ 151 000a 1A60     		str	r2, [r3]
+ 152 000c 1968     		ldr	r1, [r3]
+ 153 000e 034A     		ldr	r2, .L12+4
+ 154 0010 0A40     		ands	r2, r1
+ 155 0012 1A60     		str	r2, [r3]
+ 437:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         }
+ 438:Generated_Source\PSoC4/UART_1_SPI_UART.c ****         #endif
+ 439:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     }
+ 156              		.loc 1 439 0
+ 157              		@ sp needed
+ 158 0014 7047     		bx	lr
+ 159              	.L13:
+ 160 0016 C046     		.align	2
+ 161              	.L12:
+ 162 0018 04020940 		.word	1074332164
+ 163 001c FFFFFEFF 		.word	-65537
+ 164              		.cfi_endproc
+ 165              	.LFE4:
+ 166              		.size	UART_1_SpiUartClearTxBuffer, .-UART_1_SpiUartClearTxBuffer
+ 167              		.section	.text.UART_1_SpiUartDisableIntRx,"ax",%progbits
+ 168              		.align	2
+ 169              		.global	UART_1_SpiUartDisableIntRx
+ 170              		.code	16
+ 171              		.thumb_func
+ 172              		.type	UART_1_SpiUartDisableIntRx, %function
+ 173              	UART_1_SpiUartDisableIntRx:
+ 174              	.LFB5:
+ 440:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 441:Generated_Source\PSoC4/UART_1_SPI_UART.c **** #endif /* (UART_1_TX_DIRECTION) */
+ 442:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 443:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 444:Generated_Source\PSoC4/UART_1_SPI_UART.c **** /*******************************************************************************
+ 445:Generated_Source\PSoC4/UART_1_SPI_UART.c **** * Function Name: UART_1_SpiUartDisableIntRx
+ 446:Generated_Source\PSoC4/UART_1_SPI_UART.c **** ****************************************************************************//**
+ 447:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *
+ 448:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *  Disables the RX interrupt sources.
+ 449:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *
+ 450:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *  \return
+ 451:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *   Returns the RX interrupt sources enabled before the function call.
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 12
+
+
+ 452:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *
+ 453:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *******************************************************************************/
+ 454:Generated_Source\PSoC4/UART_1_SPI_UART.c **** uint32 UART_1_SpiUartDisableIntRx(void)
+ 455:Generated_Source\PSoC4/UART_1_SPI_UART.c **** {
+ 175              		.loc 1 455 0
+ 176              		.cfi_startproc
+ 177              		@ args = 0, pretend = 0, frame = 0
+ 178              		@ frame_needed = 0, uses_anonymous_args = 0
+ 179              		@ link register save eliminated.
+ 456:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     uint32 intSource;
+ 457:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 458:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     intSource = UART_1_GetRxInterruptMode();
+ 180              		.loc 1 458 0
+ 181 0000 024B     		ldr	r3, .L15
+ 182 0002 1868     		ldr	r0, [r3]
+ 183              	.LVL10:
+ 459:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 460:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     UART_1_SetRxInterruptMode(UART_1_NO_INTR_SOURCES);
+ 184              		.loc 1 460 0
+ 185 0004 0022     		movs	r2, #0
+ 186 0006 1A60     		str	r2, [r3]
+ 461:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 462:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     return (intSource);
+ 463:Generated_Source\PSoC4/UART_1_SPI_UART.c **** }
+ 187              		.loc 1 463 0
+ 188              		@ sp needed
+ 189 0008 7047     		bx	lr
+ 190              	.L16:
+ 191 000a C046     		.align	2
+ 192              	.L15:
+ 193 000c C80F0940 		.word	1074335688
+ 194              		.cfi_endproc
+ 195              	.LFE5:
+ 196              		.size	UART_1_SpiUartDisableIntRx, .-UART_1_SpiUartDisableIntRx
+ 197              		.section	.text.UART_1_SpiUartDisableIntTx,"ax",%progbits
+ 198              		.align	2
+ 199              		.global	UART_1_SpiUartDisableIntTx
+ 200              		.code	16
+ 201              		.thumb_func
+ 202              		.type	UART_1_SpiUartDisableIntTx, %function
+ 203              	UART_1_SpiUartDisableIntTx:
+ 204              	.LFB6:
+ 464:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 465:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 466:Generated_Source\PSoC4/UART_1_SPI_UART.c **** /*******************************************************************************
+ 467:Generated_Source\PSoC4/UART_1_SPI_UART.c **** * Function Name: UART_1_SpiUartDisableIntTx
+ 468:Generated_Source\PSoC4/UART_1_SPI_UART.c **** ****************************************************************************//**
+ 469:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *
+ 470:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *  Disables TX interrupt sources.
+ 471:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *
+ 472:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *  \return
+ 473:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *   Returns TX interrupt sources enabled before function call.
+ 474:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *
+ 475:Generated_Source\PSoC4/UART_1_SPI_UART.c **** *******************************************************************************/
+ 476:Generated_Source\PSoC4/UART_1_SPI_UART.c **** uint32 UART_1_SpiUartDisableIntTx(void)
+ 477:Generated_Source\PSoC4/UART_1_SPI_UART.c **** {
+ 205              		.loc 1 477 0
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 13
+
+
+ 206              		.cfi_startproc
+ 207              		@ args = 0, pretend = 0, frame = 0
+ 208              		@ frame_needed = 0, uses_anonymous_args = 0
+ 209              		@ link register save eliminated.
+ 478:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     uint32 intSourceMask;
+ 479:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 480:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     intSourceMask = UART_1_GetTxInterruptMode();
+ 210              		.loc 1 480 0
+ 211 0000 024B     		ldr	r3, .L18
+ 212 0002 1868     		ldr	r0, [r3]
+ 213              	.LVL11:
+ 481:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 482:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     UART_1_SetTxInterruptMode(UART_1_NO_INTR_SOURCES);
+ 214              		.loc 1 482 0
+ 215 0004 0022     		movs	r2, #0
+ 216 0006 1A60     		str	r2, [r3]
+ 483:Generated_Source\PSoC4/UART_1_SPI_UART.c **** 
+ 484:Generated_Source\PSoC4/UART_1_SPI_UART.c ****     return (intSourceMask);
+ 485:Generated_Source\PSoC4/UART_1_SPI_UART.c **** }
+ 217              		.loc 1 485 0
+ 218              		@ sp needed
+ 219 0008 7047     		bx	lr
+ 220              	.L19:
+ 221 000a C046     		.align	2
+ 222              	.L18:
+ 223 000c 880F0940 		.word	1074335624
+ 224              		.cfi_endproc
+ 225              	.LFE6:
+ 226              		.size	UART_1_SpiUartDisableIntTx, .-UART_1_SpiUartDisableIntTx
+ 227              		.text
+ 228              	.Letext0:
+ 229              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 230              		.section	.debug_info,"",%progbits
+ 231              	.Ldebug_info0:
+ 232 0000 BB010000 		.4byte	0x1bb
+ 233 0004 0400     		.2byte	0x4
+ 234 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 235 000a 04       		.byte	0x4
+ 236 000b 01       		.uleb128 0x1
+ 237 000c FC010000 		.4byte	.LASF28
+ 238 0010 0C       		.byte	0xc
+ 239 0011 7E010000 		.4byte	.LASF29
+ 240 0015 12010000 		.4byte	.LASF30
+ 241 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 242 001d 00000000 		.4byte	0
+ 243 0021 00000000 		.4byte	.Ldebug_line0
+ 244 0025 02       		.uleb128 0x2
+ 245 0026 01       		.byte	0x1
+ 246 0027 06       		.byte	0x6
+ 247 0028 8E020000 		.4byte	.LASF0
+ 248 002c 02       		.uleb128 0x2
+ 249 002d 01       		.byte	0x1
+ 250 002e 08       		.byte	0x8
+ 251 002f AD000000 		.4byte	.LASF1
+ 252 0033 02       		.uleb128 0x2
+ 253 0034 02       		.byte	0x2
+ 254 0035 05       		.byte	0x5
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 14
+
+
+ 255 0036 C2010000 		.4byte	.LASF2
+ 256 003a 02       		.uleb128 0x2
+ 257 003b 02       		.byte	0x2
+ 258 003c 07       		.byte	0x7
+ 259 003d 31000000 		.4byte	.LASF3
+ 260 0041 02       		.uleb128 0x2
+ 261 0042 04       		.byte	0x4
+ 262 0043 05       		.byte	0x5
+ 263 0044 E7010000 		.4byte	.LASF4
+ 264 0048 02       		.uleb128 0x2
+ 265 0049 04       		.byte	0x4
+ 266 004a 07       		.byte	0x7
+ 267 004b 73000000 		.4byte	.LASF5
+ 268 004f 02       		.uleb128 0x2
+ 269 0050 08       		.byte	0x8
+ 270 0051 05       		.byte	0x5
+ 271 0052 6B010000 		.4byte	.LASF6
+ 272 0056 02       		.uleb128 0x2
+ 273 0057 08       		.byte	0x8
+ 274 0058 07       		.byte	0x7
+ 275 0059 FB000000 		.4byte	.LASF7
+ 276 005d 03       		.uleb128 0x3
+ 277 005e 04       		.byte	0x4
+ 278 005f 05       		.byte	0x5
+ 279 0060 696E7400 		.ascii	"int\000"
+ 280 0064 02       		.uleb128 0x2
+ 281 0065 04       		.byte	0x4
+ 282 0066 07       		.byte	0x7
+ 283 0067 44000000 		.4byte	.LASF8
+ 284 006b 04       		.uleb128 0x4
+ 285 006c A1000000 		.4byte	.LASF9
+ 286 0070 02       		.byte	0x2
+ 287 0071 FB01     		.2byte	0x1fb
+ 288 0073 2C000000 		.4byte	0x2c
+ 289 0077 04       		.uleb128 0x4
+ 290 0078 DC000000 		.4byte	.LASF10
+ 291 007c 02       		.byte	0x2
+ 292 007d FD01     		.2byte	0x1fd
+ 293 007f 48000000 		.4byte	0x48
+ 294 0083 02       		.uleb128 0x2
+ 295 0084 04       		.byte	0x4
+ 296 0085 04       		.byte	0x4
+ 297 0086 51000000 		.4byte	.LASF11
+ 298 008a 02       		.uleb128 0x2
+ 299 008b 08       		.byte	0x8
+ 300 008c 04       		.byte	0x4
+ 301 008d BB000000 		.4byte	.LASF12
+ 302 0091 02       		.uleb128 0x2
+ 303 0092 01       		.byte	0x1
+ 304 0093 08       		.byte	0x8
+ 305 0094 79010000 		.4byte	.LASF13
+ 306 0098 04       		.uleb128 0x4
+ 307 0099 1E000000 		.4byte	.LASF14
+ 308 009d 02       		.byte	0x2
+ 309 009e A702     		.2byte	0x2a7
+ 310 00a0 A4000000 		.4byte	0xa4
+ 311 00a4 05       		.uleb128 0x5
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 15
+
+
+ 312 00a5 77000000 		.4byte	0x77
+ 313 00a9 02       		.uleb128 0x2
+ 314 00aa 08       		.byte	0x8
+ 315 00ab 04       		.byte	0x4
+ 316 00ac F0010000 		.4byte	.LASF15
+ 317 00b0 02       		.uleb128 0x2
+ 318 00b1 04       		.byte	0x4
+ 319 00b2 07       		.byte	0x7
+ 320 00b3 62010000 		.4byte	.LASF16
+ 321 00b7 06       		.uleb128 0x6
+ 322 00b8 C2000000 		.4byte	.LASF17
+ 323 00bc 01       		.byte	0x1
+ 324 00bd 0101     		.2byte	0x101
+ 325 00bf 00000000 		.4byte	.LFB1
+ 326 00c3 1C000000 		.4byte	.LFE1-.LFB1
+ 327 00c7 01       		.uleb128 0x1
+ 328 00c8 9C       		.byte	0x9c
+ 329 00c9 DC000000 		.4byte	0xdc
+ 330 00cd 07       		.uleb128 0x7
+ 331 00ce 2A000000 		.4byte	.LASF19
+ 332 00d2 01       		.byte	0x1
+ 333 00d3 0101     		.2byte	0x101
+ 334 00d5 77000000 		.4byte	0x77
+ 335 00d9 01       		.uleb128 0x1
+ 336 00da 50       		.byte	0x50
+ 337 00db 00       		.byte	0
+ 338 00dc 06       		.uleb128 0x6
+ 339 00dd 57000000 		.4byte	.LASF18
+ 340 00e1 01       		.byte	0x1
+ 341 00e2 5401     		.2byte	0x154
+ 342 00e4 00000000 		.4byte	.LFB2
+ 343 00e8 18000000 		.4byte	.LFE2-.LFB2
+ 344 00ec 01       		.uleb128 0x1
+ 345 00ed 9C       		.byte	0x9c
+ 346 00ee 2A010000 		.4byte	0x12a
+ 347 00f2 08       		.uleb128 0x8
+ 348 00f3 A7000000 		.4byte	.LASF20
+ 349 00f7 01       		.byte	0x1
+ 350 00f8 5401     		.2byte	0x154
+ 351 00fa 2A010000 		.4byte	0x12a
+ 352 00fe 00000000 		.4byte	.LLST0
+ 353 0102 08       		.uleb128 0x8
+ 354 0103 24000000 		.4byte	.LASF21
+ 355 0107 01       		.byte	0x1
+ 356 0108 5401     		.2byte	0x154
+ 357 010a 77000000 		.4byte	0x77
+ 358 010e 2C000000 		.4byte	.LLST1
+ 359 0112 09       		.uleb128 0x9
+ 360 0113 6900     		.ascii	"i\000"
+ 361 0115 01       		.byte	0x1
+ 362 0116 5601     		.2byte	0x156
+ 363 0118 77000000 		.4byte	0x77
+ 364 011c 58000000 		.4byte	.LLST2
+ 365 0120 0A       		.uleb128 0xa
+ 366 0121 10000000 		.4byte	.LVL4
+ 367 0125 B7000000 		.4byte	0xb7
+ 368 0129 00       		.byte	0
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 16
+
+
+ 369 012a 0B       		.uleb128 0xb
+ 370 012b 04       		.byte	0x4
+ 371 012c 30010000 		.4byte	0x130
+ 372 0130 0C       		.uleb128 0xc
+ 373 0131 6B000000 		.4byte	0x6b
+ 374 0135 0D       		.uleb128 0xd
+ 375 0136 00000000 		.4byte	.LASF23
+ 376 013a 01       		.byte	0x1
+ 377 013b 7501     		.2byte	0x175
+ 378 013d 77000000 		.4byte	0x77
+ 379 0141 00000000 		.4byte	.LFB3
+ 380 0145 10000000 		.4byte	.LFE3-.LFB3
+ 381 0149 01       		.uleb128 0x1
+ 382 014a 9C       		.byte	0x9c
+ 383 014b 5E010000 		.4byte	0x15e
+ 384 014f 0E       		.uleb128 0xe
+ 385 0150 6E000000 		.4byte	.LASF22
+ 386 0154 01       		.byte	0x1
+ 387 0155 7701     		.2byte	0x177
+ 388 0157 77000000 		.4byte	0x77
+ 389 015b 01       		.uleb128 0x1
+ 390 015c 50       		.byte	0x50
+ 391 015d 00       		.byte	0
+ 392 015e 0F       		.uleb128 0xf
+ 393 015f 85000000 		.4byte	.LASF31
+ 394 0163 01       		.byte	0x1
+ 395 0164 A101     		.2byte	0x1a1
+ 396 0166 00000000 		.4byte	.LFB4
+ 397 016a 20000000 		.4byte	.LFE4-.LFB4
+ 398 016e 01       		.uleb128 0x1
+ 399 016f 9C       		.byte	0x9c
+ 400 0170 0D       		.uleb128 0xd
+ 401 0171 A7010000 		.4byte	.LASF24
+ 402 0175 01       		.byte	0x1
+ 403 0176 C601     		.2byte	0x1c6
+ 404 0178 77000000 		.4byte	0x77
+ 405 017c 00000000 		.4byte	.LFB5
+ 406 0180 10000000 		.4byte	.LFE5-.LFB5
+ 407 0184 01       		.uleb128 0x1
+ 408 0185 9C       		.byte	0x9c
+ 409 0186 99010000 		.4byte	0x199
+ 410 018a 0E       		.uleb128 0xe
+ 411 018b F1000000 		.4byte	.LASF25
+ 412 018f 01       		.byte	0x1
+ 413 0190 C801     		.2byte	0x1c8
+ 414 0192 77000000 		.4byte	0x77
+ 415 0196 01       		.uleb128 0x1
+ 416 0197 50       		.byte	0x50
+ 417 0198 00       		.byte	0
+ 418 0199 10       		.uleb128 0x10
+ 419 019a CC010000 		.4byte	.LASF26
+ 420 019e 01       		.byte	0x1
+ 421 019f DC01     		.2byte	0x1dc
+ 422 01a1 77000000 		.4byte	0x77
+ 423 01a5 00000000 		.4byte	.LFB6
+ 424 01a9 10000000 		.4byte	.LFE6-.LFB6
+ 425 01ad 01       		.uleb128 0x1
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 17
+
+
+ 426 01ae 9C       		.byte	0x9c
+ 427 01af 0E       		.uleb128 0xe
+ 428 01b0 E3000000 		.4byte	.LASF27
+ 429 01b4 01       		.byte	0x1
+ 430 01b5 DE01     		.2byte	0x1de
+ 431 01b7 77000000 		.4byte	0x77
+ 432 01bb 01       		.uleb128 0x1
+ 433 01bc 50       		.byte	0x50
+ 434 01bd 00       		.byte	0
+ 435 01be 00       		.byte	0
+ 436              		.section	.debug_abbrev,"",%progbits
+ 437              	.Ldebug_abbrev0:
+ 438 0000 01       		.uleb128 0x1
+ 439 0001 11       		.uleb128 0x11
+ 440 0002 01       		.byte	0x1
+ 441 0003 25       		.uleb128 0x25
+ 442 0004 0E       		.uleb128 0xe
+ 443 0005 13       		.uleb128 0x13
+ 444 0006 0B       		.uleb128 0xb
+ 445 0007 03       		.uleb128 0x3
+ 446 0008 0E       		.uleb128 0xe
+ 447 0009 1B       		.uleb128 0x1b
+ 448 000a 0E       		.uleb128 0xe
+ 449 000b 55       		.uleb128 0x55
+ 450 000c 17       		.uleb128 0x17
+ 451 000d 11       		.uleb128 0x11
+ 452 000e 01       		.uleb128 0x1
+ 453 000f 10       		.uleb128 0x10
+ 454 0010 17       		.uleb128 0x17
+ 455 0011 00       		.byte	0
+ 456 0012 00       		.byte	0
+ 457 0013 02       		.uleb128 0x2
+ 458 0014 24       		.uleb128 0x24
+ 459 0015 00       		.byte	0
+ 460 0016 0B       		.uleb128 0xb
+ 461 0017 0B       		.uleb128 0xb
+ 462 0018 3E       		.uleb128 0x3e
+ 463 0019 0B       		.uleb128 0xb
+ 464 001a 03       		.uleb128 0x3
+ 465 001b 0E       		.uleb128 0xe
+ 466 001c 00       		.byte	0
+ 467 001d 00       		.byte	0
+ 468 001e 03       		.uleb128 0x3
+ 469 001f 24       		.uleb128 0x24
+ 470 0020 00       		.byte	0
+ 471 0021 0B       		.uleb128 0xb
+ 472 0022 0B       		.uleb128 0xb
+ 473 0023 3E       		.uleb128 0x3e
+ 474 0024 0B       		.uleb128 0xb
+ 475 0025 03       		.uleb128 0x3
+ 476 0026 08       		.uleb128 0x8
+ 477 0027 00       		.byte	0
+ 478 0028 00       		.byte	0
+ 479 0029 04       		.uleb128 0x4
+ 480 002a 16       		.uleb128 0x16
+ 481 002b 00       		.byte	0
+ 482 002c 03       		.uleb128 0x3
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 18
+
+
+ 483 002d 0E       		.uleb128 0xe
+ 484 002e 3A       		.uleb128 0x3a
+ 485 002f 0B       		.uleb128 0xb
+ 486 0030 3B       		.uleb128 0x3b
+ 487 0031 05       		.uleb128 0x5
+ 488 0032 49       		.uleb128 0x49
+ 489 0033 13       		.uleb128 0x13
+ 490 0034 00       		.byte	0
+ 491 0035 00       		.byte	0
+ 492 0036 05       		.uleb128 0x5
+ 493 0037 35       		.uleb128 0x35
+ 494 0038 00       		.byte	0
+ 495 0039 49       		.uleb128 0x49
+ 496 003a 13       		.uleb128 0x13
+ 497 003b 00       		.byte	0
+ 498 003c 00       		.byte	0
+ 499 003d 06       		.uleb128 0x6
+ 500 003e 2E       		.uleb128 0x2e
+ 501 003f 01       		.byte	0x1
+ 502 0040 3F       		.uleb128 0x3f
+ 503 0041 19       		.uleb128 0x19
+ 504 0042 03       		.uleb128 0x3
+ 505 0043 0E       		.uleb128 0xe
+ 506 0044 3A       		.uleb128 0x3a
+ 507 0045 0B       		.uleb128 0xb
+ 508 0046 3B       		.uleb128 0x3b
+ 509 0047 05       		.uleb128 0x5
+ 510 0048 27       		.uleb128 0x27
+ 511 0049 19       		.uleb128 0x19
+ 512 004a 11       		.uleb128 0x11
+ 513 004b 01       		.uleb128 0x1
+ 514 004c 12       		.uleb128 0x12
+ 515 004d 06       		.uleb128 0x6
+ 516 004e 40       		.uleb128 0x40
+ 517 004f 18       		.uleb128 0x18
+ 518 0050 9742     		.uleb128 0x2117
+ 519 0052 19       		.uleb128 0x19
+ 520 0053 01       		.uleb128 0x1
+ 521 0054 13       		.uleb128 0x13
+ 522 0055 00       		.byte	0
+ 523 0056 00       		.byte	0
+ 524 0057 07       		.uleb128 0x7
+ 525 0058 05       		.uleb128 0x5
+ 526 0059 00       		.byte	0
+ 527 005a 03       		.uleb128 0x3
+ 528 005b 0E       		.uleb128 0xe
+ 529 005c 3A       		.uleb128 0x3a
+ 530 005d 0B       		.uleb128 0xb
+ 531 005e 3B       		.uleb128 0x3b
+ 532 005f 05       		.uleb128 0x5
+ 533 0060 49       		.uleb128 0x49
+ 534 0061 13       		.uleb128 0x13
+ 535 0062 02       		.uleb128 0x2
+ 536 0063 18       		.uleb128 0x18
+ 537 0064 00       		.byte	0
+ 538 0065 00       		.byte	0
+ 539 0066 08       		.uleb128 0x8
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 19
+
+
+ 540 0067 05       		.uleb128 0x5
+ 541 0068 00       		.byte	0
+ 542 0069 03       		.uleb128 0x3
+ 543 006a 0E       		.uleb128 0xe
+ 544 006b 3A       		.uleb128 0x3a
+ 545 006c 0B       		.uleb128 0xb
+ 546 006d 3B       		.uleb128 0x3b
+ 547 006e 05       		.uleb128 0x5
+ 548 006f 49       		.uleb128 0x49
+ 549 0070 13       		.uleb128 0x13
+ 550 0071 02       		.uleb128 0x2
+ 551 0072 17       		.uleb128 0x17
+ 552 0073 00       		.byte	0
+ 553 0074 00       		.byte	0
+ 554 0075 09       		.uleb128 0x9
+ 555 0076 34       		.uleb128 0x34
+ 556 0077 00       		.byte	0
+ 557 0078 03       		.uleb128 0x3
+ 558 0079 08       		.uleb128 0x8
+ 559 007a 3A       		.uleb128 0x3a
+ 560 007b 0B       		.uleb128 0xb
+ 561 007c 3B       		.uleb128 0x3b
+ 562 007d 05       		.uleb128 0x5
+ 563 007e 49       		.uleb128 0x49
+ 564 007f 13       		.uleb128 0x13
+ 565 0080 02       		.uleb128 0x2
+ 566 0081 17       		.uleb128 0x17
+ 567 0082 00       		.byte	0
+ 568 0083 00       		.byte	0
+ 569 0084 0A       		.uleb128 0xa
+ 570 0085 898201   		.uleb128 0x4109
+ 571 0088 00       		.byte	0
+ 572 0089 11       		.uleb128 0x11
+ 573 008a 01       		.uleb128 0x1
+ 574 008b 31       		.uleb128 0x31
+ 575 008c 13       		.uleb128 0x13
+ 576 008d 00       		.byte	0
+ 577 008e 00       		.byte	0
+ 578 008f 0B       		.uleb128 0xb
+ 579 0090 0F       		.uleb128 0xf
+ 580 0091 00       		.byte	0
+ 581 0092 0B       		.uleb128 0xb
+ 582 0093 0B       		.uleb128 0xb
+ 583 0094 49       		.uleb128 0x49
+ 584 0095 13       		.uleb128 0x13
+ 585 0096 00       		.byte	0
+ 586 0097 00       		.byte	0
+ 587 0098 0C       		.uleb128 0xc
+ 588 0099 26       		.uleb128 0x26
+ 589 009a 00       		.byte	0
+ 590 009b 49       		.uleb128 0x49
+ 591 009c 13       		.uleb128 0x13
+ 592 009d 00       		.byte	0
+ 593 009e 00       		.byte	0
+ 594 009f 0D       		.uleb128 0xd
+ 595 00a0 2E       		.uleb128 0x2e
+ 596 00a1 01       		.byte	0x1
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 20
+
+
+ 597 00a2 3F       		.uleb128 0x3f
+ 598 00a3 19       		.uleb128 0x19
+ 599 00a4 03       		.uleb128 0x3
+ 600 00a5 0E       		.uleb128 0xe
+ 601 00a6 3A       		.uleb128 0x3a
+ 602 00a7 0B       		.uleb128 0xb
+ 603 00a8 3B       		.uleb128 0x3b
+ 604 00a9 05       		.uleb128 0x5
+ 605 00aa 27       		.uleb128 0x27
+ 606 00ab 19       		.uleb128 0x19
+ 607 00ac 49       		.uleb128 0x49
+ 608 00ad 13       		.uleb128 0x13
+ 609 00ae 11       		.uleb128 0x11
+ 610 00af 01       		.uleb128 0x1
+ 611 00b0 12       		.uleb128 0x12
+ 612 00b1 06       		.uleb128 0x6
+ 613 00b2 40       		.uleb128 0x40
+ 614 00b3 18       		.uleb128 0x18
+ 615 00b4 9742     		.uleb128 0x2117
+ 616 00b6 19       		.uleb128 0x19
+ 617 00b7 01       		.uleb128 0x1
+ 618 00b8 13       		.uleb128 0x13
+ 619 00b9 00       		.byte	0
+ 620 00ba 00       		.byte	0
+ 621 00bb 0E       		.uleb128 0xe
+ 622 00bc 34       		.uleb128 0x34
+ 623 00bd 00       		.byte	0
+ 624 00be 03       		.uleb128 0x3
+ 625 00bf 0E       		.uleb128 0xe
+ 626 00c0 3A       		.uleb128 0x3a
+ 627 00c1 0B       		.uleb128 0xb
+ 628 00c2 3B       		.uleb128 0x3b
+ 629 00c3 05       		.uleb128 0x5
+ 630 00c4 49       		.uleb128 0x49
+ 631 00c5 13       		.uleb128 0x13
+ 632 00c6 02       		.uleb128 0x2
+ 633 00c7 18       		.uleb128 0x18
+ 634 00c8 00       		.byte	0
+ 635 00c9 00       		.byte	0
+ 636 00ca 0F       		.uleb128 0xf
+ 637 00cb 2E       		.uleb128 0x2e
+ 638 00cc 00       		.byte	0
+ 639 00cd 3F       		.uleb128 0x3f
+ 640 00ce 19       		.uleb128 0x19
+ 641 00cf 03       		.uleb128 0x3
+ 642 00d0 0E       		.uleb128 0xe
+ 643 00d1 3A       		.uleb128 0x3a
+ 644 00d2 0B       		.uleb128 0xb
+ 645 00d3 3B       		.uleb128 0x3b
+ 646 00d4 05       		.uleb128 0x5
+ 647 00d5 27       		.uleb128 0x27
+ 648 00d6 19       		.uleb128 0x19
+ 649 00d7 11       		.uleb128 0x11
+ 650 00d8 01       		.uleb128 0x1
+ 651 00d9 12       		.uleb128 0x12
+ 652 00da 06       		.uleb128 0x6
+ 653 00db 40       		.uleb128 0x40
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 21
+
+
+ 654 00dc 18       		.uleb128 0x18
+ 655 00dd 9742     		.uleb128 0x2117
+ 656 00df 19       		.uleb128 0x19
+ 657 00e0 00       		.byte	0
+ 658 00e1 00       		.byte	0
+ 659 00e2 10       		.uleb128 0x10
+ 660 00e3 2E       		.uleb128 0x2e
+ 661 00e4 01       		.byte	0x1
+ 662 00e5 3F       		.uleb128 0x3f
+ 663 00e6 19       		.uleb128 0x19
+ 664 00e7 03       		.uleb128 0x3
+ 665 00e8 0E       		.uleb128 0xe
+ 666 00e9 3A       		.uleb128 0x3a
+ 667 00ea 0B       		.uleb128 0xb
+ 668 00eb 3B       		.uleb128 0x3b
+ 669 00ec 05       		.uleb128 0x5
+ 670 00ed 27       		.uleb128 0x27
+ 671 00ee 19       		.uleb128 0x19
+ 672 00ef 49       		.uleb128 0x49
+ 673 00f0 13       		.uleb128 0x13
+ 674 00f1 11       		.uleb128 0x11
+ 675 00f2 01       		.uleb128 0x1
+ 676 00f3 12       		.uleb128 0x12
+ 677 00f4 06       		.uleb128 0x6
+ 678 00f5 40       		.uleb128 0x40
+ 679 00f6 18       		.uleb128 0x18
+ 680 00f7 9742     		.uleb128 0x2117
+ 681 00f9 19       		.uleb128 0x19
+ 682 00fa 00       		.byte	0
+ 683 00fb 00       		.byte	0
+ 684 00fc 00       		.byte	0
+ 685              		.section	.debug_loc,"",%progbits
+ 686              	.Ldebug_loc0:
+ 687              	.LLST0:
+ 688 0000 00000000 		.4byte	.LVL1
+ 689 0004 0A000000 		.4byte	.LVL3
+ 690 0008 0100     		.2byte	0x1
+ 691 000a 50       		.byte	0x50
+ 692 000b 0A000000 		.4byte	.LVL3
+ 693 000f 16000000 		.4byte	.LVL8
+ 694 0013 0100     		.2byte	0x1
+ 695 0015 56       		.byte	0x56
+ 696 0016 16000000 		.4byte	.LVL8
+ 697 001a 18000000 		.4byte	.LFE2
+ 698 001e 0400     		.2byte	0x4
+ 699 0020 F3       		.byte	0xf3
+ 700 0021 01       		.uleb128 0x1
+ 701 0022 50       		.byte	0x50
+ 702 0023 9F       		.byte	0x9f
+ 703 0024 00000000 		.4byte	0
+ 704 0028 00000000 		.4byte	0
+ 705              	.LLST1:
+ 706 002c 00000000 		.4byte	.LVL1
+ 707 0030 0A000000 		.4byte	.LVL3
+ 708 0034 0100     		.2byte	0x1
+ 709 0036 51       		.byte	0x51
+ 710 0037 0A000000 		.4byte	.LVL3
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 22
+
+
+ 711 003b 16000000 		.4byte	.LVL7
+ 712 003f 0100     		.2byte	0x1
+ 713 0041 55       		.byte	0x55
+ 714 0042 16000000 		.4byte	.LVL7
+ 715 0046 18000000 		.4byte	.LFE2
+ 716 004a 0400     		.2byte	0x4
+ 717 004c F3       		.byte	0xf3
+ 718 004d 01       		.uleb128 0x1
+ 719 004e 51       		.byte	0x51
+ 720 004f 9F       		.byte	0x9f
+ 721 0050 00000000 		.4byte	0
+ 722 0054 00000000 		.4byte	0
+ 723              	.LLST2:
+ 724 0058 06000000 		.4byte	.LVL2
+ 725 005c 0A000000 		.4byte	.LVL3
+ 726 0060 0200     		.2byte	0x2
+ 727 0062 30       		.byte	0x30
+ 728 0063 9F       		.byte	0x9f
+ 729 0064 0A000000 		.4byte	.LVL3
+ 730 0068 16000000 		.4byte	.LVL6
+ 731 006c 0100     		.2byte	0x1
+ 732 006e 54       		.byte	0x54
+ 733 006f 00000000 		.4byte	0
+ 734 0073 00000000 		.4byte	0
+ 735              		.section	.debug_aranges,"",%progbits
+ 736 0000 44000000 		.4byte	0x44
+ 737 0004 0200     		.2byte	0x2
+ 738 0006 00000000 		.4byte	.Ldebug_info0
+ 739 000a 04       		.byte	0x4
+ 740 000b 00       		.byte	0
+ 741 000c 0000     		.2byte	0
+ 742 000e 0000     		.2byte	0
+ 743 0010 00000000 		.4byte	.LFB1
+ 744 0014 1C000000 		.4byte	.LFE1-.LFB1
+ 745 0018 00000000 		.4byte	.LFB2
+ 746 001c 18000000 		.4byte	.LFE2-.LFB2
+ 747 0020 00000000 		.4byte	.LFB3
+ 748 0024 10000000 		.4byte	.LFE3-.LFB3
+ 749 0028 00000000 		.4byte	.LFB4
+ 750 002c 20000000 		.4byte	.LFE4-.LFB4
+ 751 0030 00000000 		.4byte	.LFB5
+ 752 0034 10000000 		.4byte	.LFE5-.LFB5
+ 753 0038 00000000 		.4byte	.LFB6
+ 754 003c 10000000 		.4byte	.LFE6-.LFB6
+ 755 0040 00000000 		.4byte	0
+ 756 0044 00000000 		.4byte	0
+ 757              		.section	.debug_ranges,"",%progbits
+ 758              	.Ldebug_ranges0:
+ 759 0000 00000000 		.4byte	.LFB1
+ 760 0004 1C000000 		.4byte	.LFE1
+ 761 0008 00000000 		.4byte	.LFB2
+ 762 000c 18000000 		.4byte	.LFE2
+ 763 0010 00000000 		.4byte	.LFB3
+ 764 0014 10000000 		.4byte	.LFE3
+ 765 0018 00000000 		.4byte	.LFB4
+ 766 001c 20000000 		.4byte	.LFE4
+ 767 0020 00000000 		.4byte	.LFB5
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 23
+
+
+ 768 0024 10000000 		.4byte	.LFE5
+ 769 0028 00000000 		.4byte	.LFB6
+ 770 002c 10000000 		.4byte	.LFE6
+ 771 0030 00000000 		.4byte	0
+ 772 0034 00000000 		.4byte	0
+ 773              		.section	.debug_line,"",%progbits
+ 774              	.Ldebug_line0:
+ 775 0000 DC000000 		.section	.debug_str,"MS",%progbits,1
+ 775      02004C00 
+ 775      00000201 
+ 775      FB0E0D00 
+ 775      01010101 
+ 776              	.LASF23:
+ 777 0000 55415254 		.ascii	"UART_1_SpiUartGetTxBufferSize\000"
+ 777      5F315F53 
+ 777      70695561 
+ 777      72744765 
+ 777      74547842 
+ 778              	.LASF14:
+ 779 001e 72656733 		.ascii	"reg32\000"
+ 779      3200
+ 780              	.LASF21:
+ 781 0024 636F756E 		.ascii	"count\000"
+ 781      7400
+ 782              	.LASF19:
+ 783 002a 74784461 		.ascii	"txData\000"
+ 783      746100
+ 784              	.LASF3:
+ 785 0031 73686F72 		.ascii	"short unsigned int\000"
+ 785      7420756E 
+ 785      7369676E 
+ 785      65642069 
+ 785      6E7400
+ 786              	.LASF8:
+ 787 0044 756E7369 		.ascii	"unsigned int\000"
+ 787      676E6564 
+ 787      20696E74 
+ 787      00
+ 788              	.LASF11:
+ 789 0051 666C6F61 		.ascii	"float\000"
+ 789      7400
+ 790              	.LASF18:
+ 791 0057 55415254 		.ascii	"UART_1_SpiUartPutArray\000"
+ 791      5F315F53 
+ 791      70695561 
+ 791      72745075 
+ 791      74417272 
+ 792              	.LASF22:
+ 793 006e 73697A65 		.ascii	"size\000"
+ 793      00
+ 794              	.LASF5:
+ 795 0073 6C6F6E67 		.ascii	"long unsigned int\000"
+ 795      20756E73 
+ 795      69676E65 
+ 795      6420696E 
+ 795      7400
+ 796              	.LASF31:
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 24
+
+
+ 797 0085 55415254 		.ascii	"UART_1_SpiUartClearTxBuffer\000"
+ 797      5F315F53 
+ 797      70695561 
+ 797      7274436C 
+ 797      65617254 
+ 798              	.LASF9:
+ 799 00a1 75696E74 		.ascii	"uint8\000"
+ 799      3800
+ 800              	.LASF20:
+ 801 00a7 77724275 		.ascii	"wrBuf\000"
+ 801      6600
+ 802              	.LASF1:
+ 803 00ad 756E7369 		.ascii	"unsigned char\000"
+ 803      676E6564 
+ 803      20636861 
+ 803      7200
+ 804              	.LASF12:
+ 805 00bb 646F7562 		.ascii	"double\000"
+ 805      6C6500
+ 806              	.LASF17:
+ 807 00c2 55415254 		.ascii	"UART_1_SpiUartWriteTxData\000"
+ 807      5F315F53 
+ 807      70695561 
+ 807      72745772 
+ 807      69746554 
+ 808              	.LASF10:
+ 809 00dc 75696E74 		.ascii	"uint32\000"
+ 809      333200
+ 810              	.LASF27:
+ 811 00e3 696E7453 		.ascii	"intSourceMask\000"
+ 811      6F757263 
+ 811      654D6173 
+ 811      6B00
+ 812              	.LASF25:
+ 813 00f1 696E7453 		.ascii	"intSource\000"
+ 813      6F757263 
+ 813      6500
+ 814              	.LASF7:
+ 815 00fb 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 815      206C6F6E 
+ 815      6720756E 
+ 815      7369676E 
+ 815      65642069 
+ 816              	.LASF30:
+ 817 0112 433A5C55 		.ascii	"C:\\Users\\Qinh\\Documents\\PSoC Creator\\Workspace"
+ 817      73657273 
+ 817      5C51696E 
+ 817      685C446F 
+ 817      63756D65 
+ 818 0140 30315C63 		.ascii	"01\\cy8c4025-34channel-touch.cydsn\000"
+ 818      79386334 
+ 818      3032352D 
+ 818      33346368 
+ 818      616E6E65 
+ 819              	.LASF16:
+ 820 0162 73697A65 		.ascii	"sizetype\000"
+ 820      74797065 
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 25
+
+
+ 820      00
+ 821              	.LASF6:
+ 822 016b 6C6F6E67 		.ascii	"long long int\000"
+ 822      206C6F6E 
+ 822      6720696E 
+ 822      7400
+ 823              	.LASF13:
+ 824 0179 63686172 		.ascii	"char\000"
+ 824      00
+ 825              	.LASF29:
+ 826 017e 47656E65 		.ascii	"Generated_Source\\PSoC4\\UART_1_SPI_UART.c\000"
+ 826      72617465 
+ 826      645F536F 
+ 826      75726365 
+ 826      5C50536F 
+ 827              	.LASF24:
+ 828 01a7 55415254 		.ascii	"UART_1_SpiUartDisableIntRx\000"
+ 828      5F315F53 
+ 828      70695561 
+ 828      72744469 
+ 828      7361626C 
+ 829              	.LASF2:
+ 830 01c2 73686F72 		.ascii	"short int\000"
+ 830      7420696E 
+ 830      7400
+ 831              	.LASF26:
+ 832 01cc 55415254 		.ascii	"UART_1_SpiUartDisableIntTx\000"
+ 832      5F315F53 
+ 832      70695561 
+ 832      72744469 
+ 832      7361626C 
+ 833              	.LASF4:
+ 834 01e7 6C6F6E67 		.ascii	"long int\000"
+ 834      20696E74 
+ 834      00
+ 835              	.LASF15:
+ 836 01f0 6C6F6E67 		.ascii	"long double\000"
+ 836      20646F75 
+ 836      626C6500 
+ 837              	.LASF28:
+ 838 01fc 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 838      43313120 
+ 838      352E342E 
+ 838      31203230 
+ 838      31363036 
+ 839 022f 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0plus -mthumb -"
+ 839      20726576 
+ 839      6973696F 
+ 839      6E203233 
+ 839      37373135 
+ 840 0262 67202D4F 		.ascii	"g -Og -ffunction-sections -ffat-lto-objects\000"
+ 840      67202D66 
+ 840      66756E63 
+ 840      74696F6E 
+ 840      2D736563 
+ 841              	.LASF0:
+ 842 028e 7369676E 		.ascii	"signed char\000"
+ARM GAS  C:\Users\Qinh\AppData\Local\Temp\cc5Z3mdc.s 			page 26
+
+
+ 842      65642063 
+ 842      68617200 
+ 843              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -1,0 +1,6 @@
+C:\Users\Qinh\Documents\PSoC Creator\Workspace01\cy8c4025-34channel-touch.cydsn\cy8c4025-34channel-touch.cyprj|45962964-f420-4044-a604-9f9055287b85
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|213ca1c8-7687-4e09-9c65-24ee652cda15
+C:\Users\Qinh\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|ac3fba20-cafb-4f23-81d1-e7357d13e0f3
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|7a7164bb-268b-4dfc-8e23-9875a62c7f17
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|1b0ace23-2f65-48b6-8d94-3b10b24cfd45
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|f04c20be-a79b-4259-a9a0-5d2aad350b55

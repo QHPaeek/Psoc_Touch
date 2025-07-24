@@ -1,0 +1,18 @@
+net ClockBlock_HFClk
+	term   ":m0s8clockblockcell.hfclk"
+	switch ":m0s8clockblockcell.hfclk==>:interrupt_10.clock"
+	term   ":interrupt_10.clock"
+end ClockBlock_HFClk
+net \CapSense:Net_120\
+	term   ":p4csdcell.irq"
+	switch ":p4csdcell.irq==>:interrupt_idmux_10.in_0"
+	switch ":interrupt_idmux_10.interrupt_idmux_10__out==>:interrupt_10.interrupt"
+	term   ":interrupt_10.interrupt"
+end \CapSense:Net_120\
+net \UART_1:tx_wire\
+	term   ":m0s8scbcell_1.uart_tx"
+	switch ":m0s8scbcell_1.uart_tx==>:ioport0:hsiom_out5.fixed_ACT_1"
+	switch ":ioport0:hsiom_out5.hsiom5_out==>:ioport0:smartio_mux_in5.direct_out"
+	switch ":ioport0:smartio_mux_in5.smartio_mux_in==>:ioport0:pin5.pin_input"
+	term   ":ioport0:pin5.pin_input"
+end \UART_1:tx_wire\
