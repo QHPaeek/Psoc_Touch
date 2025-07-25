@@ -53,6 +53,8 @@
   <file name="C:\Users\Qinh\Documents\PSoC Creator\Workspace01\cy8c4025-34channel-touch.cydsn\codegentemp\UART_1_tx.h" value="HEADER;;;;;UART_1_tx" />
   <file name="C:\Users\Qinh\Documents\PSoC Creator\Workspace01\cy8c4025-34channel-touch.cydsn\codegentemp\UART_1_tx_aliases.h" value="HEADER;;;;;UART_1_tx" />
   <file name="C:\Users\Qinh\Documents\PSoC Creator\Workspace01\cy8c4025-34channel-touch.cydsn\codegentemp\UART_1_tx_PM.c" value="SOURCE_C;CortexM0p;;;;UART_1_tx" />
+  <file name="C:\Users\Qinh\Documents\PSoC Creator\Workspace01\cy8c4025-34channel-touch.cydsn\codegentemp\UART_1_SCB_IRQ.c" value="SOURCE_C;CortexM0p;;;;UART_1_SCB_IRQ" />
+  <file name="C:\Users\Qinh\Documents\PSoC Creator\Workspace01\cy8c4025-34channel-touch.cydsn\codegentemp\UART_1_SCB_IRQ.h" value="HEADER;;;;;UART_1_SCB_IRQ" />
   <file name="C:\Users\Qinh\Documents\PSoC Creator\Workspace01\cy8c4025-34channel-touch.cydsn\codegentemp\cm0plusgcc.ld" value="LINKER_SCRIPT;;;b98f980c-3bd1-4fc7-a887-c56a20a46fdd;;cy_boot" />
   <file name="C:\Users\Qinh\Documents\PSoC Creator\Workspace01\cy8c4025-34channel-touch.cydsn\codegentemp\Cm0plusRealView.scat" value="LINKER_SCRIPT;;;fdb8e1ae-f83a-46cf-9446-1d703716f38a;;cy_boot" />
   <file name="C:\Users\Qinh\Documents\PSoC Creator\Workspace01\cy8c4025-34channel-touch.cydsn\codegentemp\Cm0plusStart.c" value="SOURCE_C;CortexM0p;;;;cy_boot" />

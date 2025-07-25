@@ -2,7 +2,7 @@
 --	Conversion of cy8c4025-34channel-touch.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Thu Feb 27 15:28:51 2025
+--	Fri Jul 25 16:18:57 2025
 --
 
 USE cypress.cypress.all;
@@ -228,8 +228,8 @@ TERMINAL \UART_1:tmpSIOVREF__tx_net_0\ : bit;
 SIGNAL \UART_1:tmpINTERRUPT_0__tx_net_0\ : bit;
 SIGNAL \UART_1:Net_1099\ : bit;
 SIGNAL \UART_1:Net_1258\ : bit;
-SIGNAL \UART_1:cts_wire\ : bit;
 SIGNAL Net_3 : bit;
+SIGNAL \UART_1:cts_wire\ : bit;
 SIGNAL \UART_1:rts_wire\ : bit;
 SIGNAL \UART_1:mosi_m_wire\ : bit;
 SIGNAL \UART_1:select_m_wire_3\ : bit;
@@ -547,7 +547,7 @@ one <=  ('1') ;
 		id=>"43ec2fa1-bf22-4b71-9477-b6ca7b97f0b0/2dc2d7a8-ce2b-43c7-af4a-821c8cd73ccf",
 		source_clock_id=>"",
 		divisor=>0,
-		period=>"723379629.62963",
+		period=>"361689814.814815",
 		is_direct=>'0',
 		is_digital=>'0')
 	PORT MAP(clock_out=>\UART_1:Net_847\,
@@ -622,6 +622,10 @@ one <=  ('1') ;
 		out_clock_en=>one,
 		out_reset=>zero,
 		interrupt=>\UART_1:tmpINTERRUPT_0__tx_net_0\);
+\UART_1:SCB_IRQ\:cy_isr_v1_0
+	GENERIC MAP(int_type=>"10",
+		is_nmi=>'0')
+	PORT MAP(int_signal=>Net_3);
 \UART_1:SCB\:cy_m0s8_scb_v2_0
 	GENERIC MAP(cy_registers=>"",
 		scb_mode=>2)

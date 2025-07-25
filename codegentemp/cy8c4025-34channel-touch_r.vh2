@@ -1,5 +1,5 @@
 -- Project:   cy8c4025-34channel-touch
--- Generated: 02/27/2025 15:28:52
+-- Generated: 07/25/2025 16:18:58
 -- PSoC Creator  4.4
 
 ENTITY \cy8c4025-34channel-touch\ IS
@@ -148,6 +148,7 @@ ARCHITECTURE __DEFAULT__ OF \cy8c4025-34channel-touch\ IS
     ATTRIBUTE Location OF \CapSense:CSD\ : LABEL IS "F(CSD,0)";
     ATTRIBUTE Location OF \CapSense:IDACMod\ : LABEL IS "F(CSIDAC7,0)";
     ATTRIBUTE Location OF \CapSense:IDACComp\ : LABEL IS "F(CSIDAC7,1)";
+    ATTRIBUTE Location OF \UART_1:SCB_IRQ\ : LABEL IS "[IntrContainer=(0)][IntrId=(8)]";
     ATTRIBUTE Location OF \UART_1:SCB\ : LABEL IS "F(SCB,1)";
     COMPONENT interrupt
         PORT (
@@ -1329,6 +1330,14 @@ BEGIN
             en_b => open,
             en_c => open,
             pol => open);
+
+    \UART_1:SCB_IRQ\:interrupt
+        GENERIC MAP(
+            int_type => "10",
+            is_nmi => 0)
+        PORT MAP(
+            interrupt => Net_3,
+            clock => ClockBlock_HFClk);
 
     \UART_1:SCB\:m0s8scbcell
         GENERIC MAP(

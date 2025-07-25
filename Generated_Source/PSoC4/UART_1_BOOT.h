@@ -221,7 +221,7 @@
 * baud rate configuration, can be defined in the project if required.
 */
 #ifndef UART_1_UART_BYTE_TO_BYTE
-    #define UART_1_UART_BYTE_TO_BYTE  (171u)
+    #define UART_1_UART_BYTE_TO_BYTE  (91u)
 #endif /* UART_1_UART_BYTE_TO_BYTE */
 
 #endif /* (CY_SCB_BOOT_UART_1_H) */

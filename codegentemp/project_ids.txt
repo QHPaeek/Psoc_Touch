@@ -1,6 +1,8 @@
-C:\Users\Qinh\Documents\PSoC Creator\Workspace01\cy8c4025-34channel-touch.cydsn\cy8c4025-34channel-touch.cyprj|45962964-f420-4044-a604-9f9055287b85
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|213ca1c8-7687-4e09-9c65-24ee652cda15
-C:\Users\Qinh\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|ac3fba20-cafb-4f23-81d1-e7357d13e0f3
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|7a7164bb-268b-4dfc-8e23-9875a62c7f17
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|1b0ace23-2f65-48b6-8d94-3b10b24cfd45
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|f04c20be-a79b-4259-a9a0-5d2aad350b55
+C:\Users\Qinh\Documents\PSoC Creator\Workspace01\cy8c4025-34channel-touch.cydsn\cy8c4025-34channel-touch.cyprj|006c31ee-d2af-47eb-8a1a-1ae0e97a1bcc
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|d4593e80-f744-4b78-9cc9-c57be19b4c05
+C:\Users\Qinh\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|85177edd-0a68-4060-86b6-558eef409972
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|0b348025-ac8b-43db-b679-49c456ad3fba
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|fc3d859d-4d01-48cb-b1e9-27b3d7dd002d
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|f1fe0e9b-ada4-41db-902b-afa39a1a735f
+C:\Users\Qinh\Documents\PSoC Creator\Workspace08\4025_32_touch.cydsn\4025_32_touch.cyprj|7901d70c-c9b3-41c6-8fcf-a218f27378c7
+C:\Users\Qinh\Documents\PSoC Creator\Workspace01\DMA_UART_PSoC401.cydsn\DMA_UART_PSoC401.cyprj|32c6944a-8e66-4ab8-8f0f-d69c7df2faea

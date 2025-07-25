@@ -39,6 +39,7 @@
 #include "UART_1_SCBCLK.h"
 #include "UART_1_tx.h"
 #include "UART_1_tx_aliases.h"
+#include "UART_1_SCB_IRQ.h"
 #include "CyFlash.h"
 #include "CyLib.h"
 #include "cyPm.h"

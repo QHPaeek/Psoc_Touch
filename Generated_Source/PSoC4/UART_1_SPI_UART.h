@@ -75,13 +75,13 @@
 #define UART_1_UART_DROP_ON_PARITY_ERR    (0u)
 #define UART_1_UART_WAKE_ENABLE           (0u)
 #define UART_1_UART_RX_BUFFER_SIZE        (8u)
-#define UART_1_UART_TX_BUFFER_SIZE        (8u)
+#define UART_1_UART_TX_BUFFER_SIZE        (70u)
 #define UART_1_UART_MP_MODE_ENABLE        (0u)
 #define UART_1_UART_MP_ACCEPT_ADDRESS     (0u)
 #define UART_1_UART_MP_RX_ADDRESS         (0x2u)
 #define UART_1_UART_MP_RX_ADDRESS_MASK    (0xFFu)
 
-#define UART_1_UART_INTERRUPT_MODE        (0u)
+#define UART_1_UART_INTERRUPT_MODE        (1u)
 
 #define UART_1_UART_INTR_RX_MASK          (0x0u)
 #define UART_1_UART_INTR_TX_MASK          (0x0u)

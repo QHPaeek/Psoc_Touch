@@ -1,5 +1,5 @@
 # cy8c4025-34channel-touch
-# 2025-02-27 07:28:52Z
+# 2025-07-25 08:18:58Z
 
 set_location "ClockGenBlock" m0s8clockgenblockcell -1 -1 0
 set_location "ClockBlock" m0s8clockblockcell -1 -1 0
@@ -43,4 +43,5 @@ set_location "\CapSense:ISR\" interrupt -1 -1 10
 set_location "\CapSense:CSD\" p4csdcell -1 -1 0
 set_location "\CapSense:IDACMod\" p4csidacV2cell -1 -1 0
 set_location "\CapSense:IDACComp\" p4csidacV2cell -1 -1 1
+set_location "\UART_1:SCB_IRQ\" interrupt -1 -1 8
 set_location "\UART_1:SCB\" m0s8scbcell -1 -1 1
