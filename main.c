@@ -97,17 +97,19 @@ typedef enum
 } DEVICE_STATE;
 
 typedef union{
-    float raw_data_fl;
-    uint8_t raw_data_u8[4];
+    float raw_data_fl[2];
+    uint8_t raw_data_u8[8];
 }vofa;
 
 vofa vofa1;
+uint16_t baseline = 0;
 
 typedef union{
 	uint8_t data[70];
 	struct{
-		uint8_t syn[2];
+		uint8_t syn;
 		uint16_t channel_raw[34];
+        uint8_t checksum;
 	};
 }packet_capsense_t;
 
@@ -460,9 +462,34 @@ int main()
             for(uint8_t i = 0;i<34;i++){
                 Touch.channel_raw[i] = Touch.channel_raw[i] << resolution_zoom_map[i];
             }
+            for(uint8_t i = 0;i<69;i++){
+                Touch.checksum += Touch.data[i];
+            }
             for(uint8_t i = 0;i<70;i++){
                 UART_1_UartPutChar(Touch.data[i]);
             }
+  
+            
+/*
+            uint16_t threshold = 1000;
+            Touch.channel_raw[0] = Touch.channel_raw[0] << resolution_zoom_map[0];
+            if(baseline == 0){
+                baseline = Touch.channel_raw[0];
+            }else if(baseline + threshold > Touch.channel_raw[0]){
+                baseline = 0.7*baseline + 0.3*Touch.channel_raw[0];
+            }
+            vofa1.raw_data_fl[0] = Touch.channel_raw[0];
+            vofa1.raw_data_fl[1] = baseline;
+            for(uint8_t i = 0;i<8;i++){
+                UART_1_UartPutChar(vofa1.raw_data_u8[i]);
+            }
+            uint8_t vofa_end[4] = {0,0,0x80,0x7f};
+            UART_1_UartPutChar(vofa_end[0]);
+            UART_1_UartPutChar(vofa_end[1]);
+            UART_1_UartPutChar(vofa_end[2]);
+            UART_1_UartPutChar(vofa_end[3]);
+*/
+            
                 if(deviceScanMode == FAST_SCAN_MODE)
                 {  
                     /* If button is active, reset software counter */
